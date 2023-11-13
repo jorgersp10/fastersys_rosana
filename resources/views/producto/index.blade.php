@@ -162,7 +162,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{route('producto.store')}}" method="post" class="form-horizontal">
+                                    <form action="{{route('producto.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                 
                                         {{csrf_field()}}
                                         

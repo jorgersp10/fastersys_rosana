@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\ImagenEle;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class ProductoController extends Controller
@@ -153,8 +155,34 @@ class ProductoController extends Controller
         $producto->comentarios = strtoupper($request->comentarios);
         $producto->medida_id = $request->medida_id;
         $producto->user_mod = auth()->user()->id;
-
+        
         $producto->save();
+        
+        //GUARDA LA IMAGEN
+        $imagen= new ImagenEle();
+        $imagen->producto_id = $producto->id;
+        //dd($producto->id);
+        ///////////////////////////////////////////////////////////
+        //dd($request->tipo);
+            //Handle File Upload
+            //dd($request->hasFile('imagen'));
+        if($request->hasFile('imagen')){            
+            //Get filename with the extension
+            $filenamewithExt = $request->file('imagen')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('imagen')->guessClientExtension();
+            //FileName to store
+            $fileNameToStore = time().'.'.$extension;
+            //Upload Image
+            $path = $request->file('imagen')->storeAs('public/img/electro',$fileNameToStore);
+            $imagen->imagen=$fileNameToStore;
+            $imagen->tipo="F";
+            //dd($imagen);
+            $imagen->save();       
+            
+        }
         return Redirect::to("producto")->with('msj2', 'PRODUCTO REGISTRADO');
     }
 

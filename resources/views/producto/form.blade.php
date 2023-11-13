@@ -43,6 +43,10 @@
         </div>
     </div>
 
+    <div class="col-sm-9">
+        <input type="file" id="imagen" name="imagen" class="form-control">
+    </div>
+
     <input type="hidden" id="estado" name="estado" value="1" class="form-control" placeholder="Estado">
 
     <div class="modal-footer">

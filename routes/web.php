@@ -78,6 +78,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/imagenpro', [ImagenElectroController::class, 'store'])->name('imagenpro.add');
     Route::post('producto/imagen/{id}', [ImagenElectroController::class, 'destroy'])->name('imagenelec.destroy');
 
+    Route::get('/imagenproducto/{id}', [ProductoController::class, 'show'])->name('imagenelec.show');
+    Route::post('/imagenproducto', [ProductoController::class, 'store'])->name('imagenpro.add');
+
     Route::post('/getProveedores', [CompraController::class, 'getProveedores'])->name('getProveedores');
     Route::post('compraContable', [CompraController::class, 'compraContable'])->name('compraContable');
     Route::post('/getProductos', [FacturaController::class, 'getProductos'])->name('getProductos');
