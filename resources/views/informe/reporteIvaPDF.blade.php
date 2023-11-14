@@ -383,7 +383,7 @@
     </section>
   <footer>
     <hr>
-    <p><b>AyM INOX</b> <b>Usuario:</b> {{auth()->user()->name}}</p>
+    <p><b>Fastersys</b> <b>Usuario:</b> {{auth()->user()->name}}</p>
     <p><b>{{date('d-m-Y H:i:s')}}</b></p>
   </footer>
 </html>

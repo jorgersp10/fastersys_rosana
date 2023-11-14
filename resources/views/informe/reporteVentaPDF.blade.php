@@ -141,7 +141,7 @@
     </style>
    
     <header>
-        <h2 id="titulo" class="text-center">Ventas por rango de Fecha</h2>   
+        <h2 id="titulo" class="text-center">Total de Ventas por rango de Fecha</h2>   
 
     </header>
  
@@ -165,31 +165,25 @@
                 <thead>  
                     <tr> 
                         <th>Cliente</th>
-                        <th>Fact. Nro</th>
-                        <th>Fecha</th>
                         <th>Total Iva</th>
-                        <th>Total Factura</th>
+                        <th>Total Ventas</th>
                     </tr>
                 </thead>
             @foreach($ventas as $v)
                 <tbody>    
                     <tr>       
-                        <td>{{$v->nombre}}</td>                             
-                        <td>{{$v->fact_nro}}</td>
-                        <td>{{ date('d-m-Y', strtotime($v->fecha)) }}</td>                             
-                        <td>Gs. {{number_format(($v->ivaTotal), 0, ",", ".")}}</td>
-                        <td>Gs. {{number_format(($v->total), 0, ",", ".")}}</td>                                                                     
+                        <td>{{$v->nombre}}</td> 
+                        <td>Gs. {{number_format(($v->iva_ventas), 0, ",", ".")}}</td>                                                       
+                        <td>Gs. {{number_format(($v->total_ventas), 0, ",", ".")}}</td>                                                                                             
                     </tr>
                 @php
-                    $total_iva=$total_iva + $v->ivaTotal;
-                    $total_venta=$total_venta + $v->total;
+                    $total_iva=$total_iva + $v->iva_ventas;
+                    $total_venta=$total_venta + $v->total_ventas;
                 @endphp
                 </tbody>
             @endforeach       
             <tr id="totales">       
-                <td >TOTALES</td>                             
-                <td></td>
-                <td></td>                             
+                <td >TOTALES</td>                     
                 <td>Gs. {{number_format(($total_iva), 0, ",", ".")}}</td>
                 <td>Gs. {{number_format(($total_venta), 0, ",", ".")}}</td>                                                                     
             </tr>   
@@ -200,7 +194,7 @@
     @endif 
   <footer>
     <hr>
-    <p><b>AyM INOX</b> <b>Usuario:</b> {{auth()->user()->name}}</p>
+    <p><b>Fastersys</b> <b>Usuario:</b> {{auth()->user()->name}}</p>
     <p><b>{{date('d-m-Y H:i:s')}}</b></p>
   </footer>
 </html>

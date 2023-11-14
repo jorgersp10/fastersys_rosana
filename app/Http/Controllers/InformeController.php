@@ -395,14 +395,15 @@ class InformeController extends Controller
         //Consulta de Inmuebles
 
         $ventas = DB::table('ventas as v')
-            ->join('clientes as c', 'c.id', '=', 'v.cliente_id')
-            ->select('v.id', 'v.fact_nro', 'v.iva5', 'v.iva10', 'v.ivaTotal', 'v.exenta', 'v.fecha',
-                'v.total', 'v.estado', 'c.nombre')
-            ->where('v.estado', '=', "0");
+        ->join('clientes as c', 'c.id', '=', 'v.cliente_id')
+        ->select('c.id as cliente_id', 'c.nombre',
+         DB::raw('SUM(v.total) as total_ventas'),
+         DB::raw('SUM(v.ivaTotal) as iva_ventas'))
+        ->where('v.estado', '=', '0');
 
         if ($date1 == null && $date2 == null) {
 
-            $ventas = $ventas->orderBy('v.id', 'asc');
+            $ventas = $ventas->groupBy('c.id', 'c.nombre');
             //$pagos=$pagos->orderBy('p.fec_pag','asc');
             $ventas = $ventas->get();
             //dd($pagos);->groupby('a.id')
@@ -410,7 +411,7 @@ class InformeController extends Controller
         } else {
             $ventas = $ventas->whereBetween('v.fecha', [($date1), ($date2)]);
             //$pagos=$pagos->orderBy('c.cliente_id','asc');
-            $ventas = $ventas->orderBy('v.id', 'asc');
+            $ventas = $ventas->groupBy('c.id', 'c.nombre');
             //$pagos=$pagos->orderBy('p.fec_pag','asc');
             $ventas = $ventas->get();
 
