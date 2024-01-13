@@ -248,6 +248,12 @@
                                 {{csrf_field()}} 
                             </form> 
                         </li>
+                        <li><a class="waves-effect"  href="{{url('reporteInventarioStock')}}" onclick="event.preventDefault(); document.getElementById('reporteInventarioStock-form').submit();">    
+                            <span>Reporte Inventario Sin Stock</span></a>
+                            <form id="reporteInventarioStock-form" action="{{url('reporteInventarioStock')}}" method="GET" style="display: none;">
+                                {{csrf_field()}} 
+                            </form> 
+                        </li>
                         <!-- <li><a class="waves-effect"  href="{{url('calculoMensual')}}" onclick="event.preventDefault(); document.getElementById('calculoMensual-form').submit();">    
                             <span>Calculo mensual</span></a>
                             <form id="calculoMensual-form" action="{{url('calculoMensual')}}" method="GET" style="display: none;">

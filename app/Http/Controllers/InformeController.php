@@ -872,6 +872,16 @@ class InformeController extends Controller
         return view('informe.reporteInventarioPrecio',["productos"=>$productos]);
     }
 
+    public function reporteInventarioStock(Request $request)
+    {   
+        $productos = DB::table('productos as p')
+        ->select('p.cod_barra', 'p.descripcion','p.stock','p.precio_venta')
+        ->orderBy('p.descripcion', 'asc')
+        ->get();
+
+        return view('informe.reporteInventarioStock',["productos"=>$productos]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
